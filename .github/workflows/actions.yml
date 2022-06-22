@@ -16,12 +16,12 @@ on:
         required: false
         default: "false"
 env:
-  Rec_name: TWRP11
+  Rec_name: Twrp Recovery 12.1
   Rec_ver: 3.6.0
-  Rec_url: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-11
-  device: umi
-  DT_url: https://github.com/sekaiacg/android_device_xiaomi_umi_TWRP -b android-12
-  DT_path: device/xiaomi/umi
+  Rec_url: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1
+  device: alioth
+  DT_url: https://github.com/sekaiacg/device_xiaomi_alioth-TWRP -b android-12.1
+  DT_path: device/xiaomi/alioth
   ProductFileHeader: twrp
   target: recoveryimage
   WorkSpace: WorkSpace
@@ -64,7 +64,7 @@ jobs:
           repo init -u ${{env.Rec_url}} --depth=1 --groups=all,-notdefault,-device,-darwin,-x86,-mips
           echo "::endgroup::"
           echo "::group::Repo Sync"
-          repo sync -j4
+          repo sync -j8
           echo "::endgroup::"
       - name: Sync device tree
         run: |
@@ -109,7 +109,7 @@ jobs:
           lunch ${{env.ProductFileHeader}}_${{env.device}}-eng
           echo "::endgroup::"
           echo "::group::Sync"
-          repo sync -j4
+          repo sync -j8
           echo "::endgroup::"
           echo "::group::Build ${{env.Rec_name}}"
           mka ${{env.target}}
