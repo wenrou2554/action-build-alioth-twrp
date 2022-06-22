@@ -1,4 +1,4 @@
-name: TWRP11 Builder
+name: TWRP Builder
 
 on:
   workflow_dispatch:
